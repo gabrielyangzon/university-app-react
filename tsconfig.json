@@ -1,6 +1,13 @@
 {
   "compilerOptions": {
     "target": "es5",
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+     "paths": {
+      "igniteui-dockmanager": ["./node_modules/@infragistics/igniteui-dockmanager"],
+      "igniteui-dockmanager/*": ["./node_modules/@infragistics/igniteui-dockmanager/*"],
+      "igniteui-react-grids" : ["./node_modules/igniteui-react-grids"]
+    },
     "lib": [
       "dom",
       "dom.iterable",
