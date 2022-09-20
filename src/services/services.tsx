@@ -2,11 +2,12 @@
 import axios from "axios";
 
 
-export function getUniversities () {
- return axios.get('http://universities.hipolabs.com/search?country=United+States')
+export function getUniversitiesByCountry (country : string)  {
+  console.log(country)
+ return axios.get(`http://universities.hipolabs.com/search?country=${country}`)
     .then(function (response) {
       // handle success
-      //console.log(response.data);
+      console.log(response.data);
      return response.data
     })
     .catch(function (error) {
@@ -31,3 +32,5 @@ export function getCountries(){
       console.log(error);
     })
 }
+
+

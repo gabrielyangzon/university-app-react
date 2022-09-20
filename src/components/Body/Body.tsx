@@ -1,12 +1,13 @@
 import React , {useEffect , useState} from 'react'
 import * as dataService from '../../services/services'
+import CountryDetail from './CountryDetail';
 import Grid from './Grid';
 import SelectCountry from './SelectCountry';
-import {ErrorBoundary} from 'react-error-boundary'
 
-interface IState  {
-    countries : any[] 
+class IState   {
+    countries : any[] =[]
     selectedCountry : any 
+    university : any[] = []
 }
 
 export default function Body(){
@@ -17,48 +18,52 @@ export default function Body(){
         useEffect(() => {
 
              dataService.getCountries().then(response => 
-                {
-                   
-                    setCountries(current => { return { ...current , countries : response } }) 
+                {          
+                    setCountries(current => { return { ...current ,university : [], countries : response } }) 
                     setLoadingState(true)
-                    console.log(loadingState)
+                    console.log(countries.countries)
+                  
                 }).catch(err => console.log(err))
-
         },[])
-
-
-       
+      
         function onChangeCountryHandler(e :any){
 
-            //   dataService.getCountries().then(response => 
-            //     {
-            //         setCountries(current => { return { ...current , countries : response.data } }) 
-                    
-            //     }).catch(err => console.log(err))
-            console.log(e)
+              const {value } = e.target;
+
+              let selectedCountry = countries.countries.find(c => c.name.common === value);
+            
+              dataService.getUniversitiesByCountry(value).then(response => 
+                {
+                    setCountries(current => { return { ...current ,selectedCountry :selectedCountry, university : response } })          
+                }).catch(err => console.log(err))                     
         }
 
-    return <>
+
+
+
+    return <div className='container mt-3'>
             {loadingState === true ? 
-               <> <ErrorBoundary  FallbackComponent={ErrorFallback}>
-                
-                    <SelectCountry onChange={onChangeCountryHandler} data={countries.countries} />
-                </ErrorBoundary>
-                <Grid data={countries.countries}/>
+                <> 
+                  
+                      <SelectCountry
+                        onChange={onChangeCountryHandler}
+                        data={countries.countries} 
+                      />
+
+                      <CountryDetail 
+                        details={countries.selectedCountry}
+                      />
+                 
+                    <Grid 
+                      length={countries.university.length.toString()} 
+                      data={countries.university}
+                      />
                 </>
                 :<></>
                
             }
-          </>
+          </div>
 }
 
 
-function ErrorFallback({error, resetErrorBoundary} : any) {
-  return (
-    <div role="alert">
-      <p>Something went wrong:</p>
-      <pre>{error.message}</pre>
-      <button onClick={resetErrorBoundary}>Try again</button>
-    </div>
-  )
-}
+
