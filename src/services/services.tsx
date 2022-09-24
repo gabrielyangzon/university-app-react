@@ -4,7 +4,7 @@ import axios from "axios";
 
 export function getUniversitiesByCountry (country : string)  {
  
- return axios.get(`https://universities.hipolabs.com/search?country=${country}`)
+ return axios.get(`http://universities.hipolabs.com/search?country=${country}`)
     .then(function (response) {
       // handle success
       console.log(response.data);
