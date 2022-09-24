@@ -1,5 +1,5 @@
 import React from 'react'
-import { IgrDataGridModule, IgrDataGridToolbar, IgrNumericColumn, IgrTextColumn, IgrDataGrid} from 'igniteui-react-grids';
+import { IgrDataGridModule, IgrDataGridToolbar, IgrTextColumn, IgrDataGrid} from 'igniteui-react-grids';
 import { IgrGridColumnOptionsModule } from 'igniteui-react-grids';
 
 IgrDataGridModule.register();

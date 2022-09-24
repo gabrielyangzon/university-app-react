@@ -24,7 +24,7 @@ export default function Body(){
                     console.log(countries.countries)
                   
                 }).catch(err => console.log(err))
-        },[])
+        },[countries])
       
         function onChangeCountryHandler(e :any){
 
